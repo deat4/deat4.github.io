@@ -71,6 +71,125 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-马拉松算法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/22/%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%AE%97%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2022-04-22T15:52:46.000Z" itemprop="datePublished">2022-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/04/22/%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%AE%97%E6%B3%95/">马拉松算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">​    int expand(const string&amp; s,int left,int right)</span><br><span class="line">​    &#123;</span><br><span class="line">​        while(left&gt;=0&amp;&amp;right&lt;s.size()&amp;&amp;s[left]==s[right])</span><br><span class="line">​        &#123;</span><br><span class="line">​            left--;</span><br><span class="line">​            right++;</span><br><span class="line">​        &#125;</span><br><span class="line">​        return (right-left-2)/2;</span><br><span class="line">​    &#125;</span><br><span class="line">​    string longestPalindrome(string s) &#123;</span><br><span class="line">​        int max_right =-1;</span><br><span class="line">​        int middle=-1;</span><br><span class="line">​        int end=-1;</span><br><span class="line">​        int start=0;</span><br><span class="line">​      string t=&quot;#&quot;;</span><br><span class="line">​      for(char c:s)</span><br><span class="line">​      &#123;</span><br><span class="line">​          t+=c;</span><br><span class="line">​          t+=&#x27;#&#x27;;</span><br><span class="line">​      &#125;</span><br><span class="line">​      t+=&quot;#&quot;;</span><br><span class="line">​      s=t;</span><br><span class="line">​      vector&lt; int &gt;p;</span><br><span class="line">​    for(int i=0;i&lt;s.size();i++)</span><br><span class="line">​        &#123;</span><br><span class="line">​            </span><br><span class="line">​            int cur_length;</span><br><span class="line">​           if(max_right&gt;=i)</span><br><span class="line">​            &#123;</span><br><span class="line">​                int mirro=2*middle-i;</span><br><span class="line">​                int min_length=min(p[mirro],max_right-i);</span><br><span class="line">​                cur_length=expand(s,i-min_length,i+min_length);</span><br><span class="line">​            &#125;else</span><br><span class="line">​            &#123;</span><br><span class="line">​                cur_length=expand(s,i,i);</span><br><span class="line">​            &#125;</span><br><span class="line">​            p.push_back(cur_length);</span><br><span class="line">​            if(i+cur_length&gt;max_right)</span><br><span class="line">​            &#123;</span><br><span class="line">​                middle=i;</span><br><span class="line">​                max_right=i+cur_length;</span><br><span class="line">​            &#125;</span><br><span class="line">​            if(cur_length*2+1&gt;end-start)</span><br><span class="line">​            &#123;</span><br><span class="line">​                end=i+cur_length;</span><br><span class="line">​                start=i-cur_length;</span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​        string ans;</span><br><span class="line">​        for(int i=start;i&lt;=end;i++)</span><br><span class="line">​        &#123;</span><br><span class="line">​            if(s[i]!=&#x27;#&#x27;)</span><br><span class="line">​            &#123;</span><br><span class="line">​                ans+=s[i];</span><br><span class="line">​            &#125;</span><br><span class="line">​        &#125;</span><br><span class="line">​        return ans;</span><br><span class="line">​    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/22/%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%AE%97%E6%B3%95/" data-id="cl2am64un0001qsu76r9n2w0i" data-title="马拉松算法" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-dos" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/21/dos/" class="article-date">
+  <time class="dt-published" datetime="2022-04-21T05:02:10.000Z" itemprop="datePublished">2022-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/04/21/dos/">dos</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/21/dos/" data-id="cl2am64uj0000qsu7e5ge8ou3" data-title="dos" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-leetcode第四题-关于二分的练习" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/18/leetcode%E7%AC%AC%E5%9B%9B%E9%A2%98-%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86%E7%9A%84%E7%BB%83%E4%B9%A0/" class="article-date">
+  <time class="dt-published" datetime="2022-04-18T06:41:41.000Z" itemprop="datePublished">2022-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/04/18/leetcode%E7%AC%AC%E5%9B%9B%E9%A2%98-%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86%E7%9A%84%E7%BB%83%E4%B9%A0/">leetcode第四题---关于二分的练习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double findMedianSortedArrays(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;</span><br><span class="line">      if(nums1.size()&gt;nums2.size())</span><br><span class="line">      &#123;</span><br><span class="line">          return findMedianSortedArrays(nums2,nums1);</span><br><span class="line">      &#125;</span><br><span class="line">      int n=nums1.size();</span><br><span class="line">      int m=nums2.size();</span><br><span class="line">      int mid =(m + n + 1) / 2;</span><br><span class="line">      int memian1=0;</span><br><span class="line">      int mimian2=0;</span><br><span class="line">      int left=0;</span><br><span class="line">      int right=n;</span><br><span class="line">      while(left&lt;=right)</span><br><span class="line">      &#123;</span><br><span class="line">          int i=(left+right)/2;</span><br><span class="line">          int j = mid - i;</span><br><span class="line">          int nums1_mii=(i==0?INT_MIN:nums1[i-1]);</span><br><span class="line">          int nums1_i=(i == n ? INT_MAX : nums1[i]);</span><br><span class="line">          int nums2_mij=(j == 0 ? INT_MIN : nums2[j - 1]);</span><br><span class="line">          int nums2_j=(j == m ? INT_MAX : nums2[j]);</span><br><span class="line">          if(nums1_mii&gt;nums2_j)</span><br><span class="line">          &#123;</span><br><span class="line">             </span><br><span class="line">              right=i-1;</span><br><span class="line">          &#125;else</span><br><span class="line">          &#123;</span><br><span class="line">            memian1=max(nums1_mii,nums2_mij);</span><br><span class="line">              mimian2=min(nums1_i,nums2_j);</span><br><span class="line">              left=i+1;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">       return (m + n) % 2 == 0 ? (memian1 + mimian2) / 2.0 : memian1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思路复述：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/18/leetcode%E7%AC%AC%E5%9B%9B%E9%A2%98-%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86%E7%9A%84%E7%BB%83%E4%B9%A0/" data-id="cl2am64uo0002qsu7axca79rv" data-title="leetcode第四题---关于二分的练习" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-LeetCode第三题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/04/17/LeetCode%E7%AC%AC%E4%B8%89%E9%A2%98/" class="article-date">
@@ -258,15 +377,23 @@
       <ul>
         
           <li>
+            <a href="/2022/04/22/%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%AE%97%E6%B3%95/">马拉松算法</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/21/dos/">dos</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/18/leetcode%E7%AC%AC%E5%9B%9B%E9%A2%98-%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%88%86%E7%9A%84%E7%BB%83%E4%B9%A0/">leetcode第四题---关于二分的练习</a>
+          </li>
+        
+          <li>
             <a href="/2022/04/17/LeetCode%E7%AC%AC%E4%B8%89%E9%A2%98/">LeetCode第三题</a>
           </li>
         
           <li>
             <a href="/2022/03/30/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">我的第一篇文章</a>
-          </li>
-        
-          <li>
-            <a href="/2022/03/30/hello-world/">Hello World</a>
           </li>
         
       </ul>
